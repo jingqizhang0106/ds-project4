@@ -1,17 +1,29 @@
 package ds.project4task2.models;
 
-import lombok.Builder;
-
 import java.util.Date;
 
 
 public class Log {
     Date timeStamp;
-    String appId;
+    String status;
+    String requestIP;
     String deviceType;
     String searchTerm;
     long apiResponseTime;
     SearchResult result;
+
+    public Log() {
+    }
+
+    public Log(Date timeStamp, String requestIP, String deviceType, String searchTerm, long apiResponseTime, AndroidResponse androidResponse) {
+        this.timeStamp = timeStamp;
+        this.status = androidResponse.getStatus();
+        this.requestIP = requestIP;
+        this.deviceType = deviceType;
+        this.searchTerm = searchTerm;
+        this.apiResponseTime = apiResponseTime;
+        this.result = androidResponse.getSearchResult();
+    }
 
     public Date getTimeStamp() {
         return timeStamp;
@@ -21,12 +33,20 @@ public class Log {
         this.timeStamp = timeStamp;
     }
 
-    public String getAppId() {
-        return appId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRequestIP() {
+        return requestIP;
+    }
+
+    public void setRequestIP(String requestIP) {
+        this.requestIP = requestIP;
     }
 
     public String getDeviceType() {
@@ -43,15 +63,6 @@ public class Log {
 
     public void setSearchTerm(String searchTerm) {
         this.searchTerm = searchTerm;
-    }
-    public Log(){}
-    public Log(Date timeStamp, String appId, String deviceType, String searchTerm, long apiResponseTime, SearchResult result) {
-        this.timeStamp = timeStamp;
-        this.appId = appId;
-        this.deviceType = deviceType;
-        this.searchTerm = searchTerm;
-        this.apiResponseTime = apiResponseTime;
-        this.result = result;
     }
 
     public long getApiResponseTime() {

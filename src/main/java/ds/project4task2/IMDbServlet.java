@@ -1,6 +1,5 @@
 package ds.project4task2;
 
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,15 +20,13 @@ public class IMDbServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=utf-8");
 
-        String jsonResponse = model.fetchInfo(request );
-
+        String jsonResponse = model.fetchInfo(request);
 
         // send back Json response
         PrintWriter out = response.getWriter();
         out.println(jsonResponse);
         out.close();
     }
-
 
 
     public void destroy() {

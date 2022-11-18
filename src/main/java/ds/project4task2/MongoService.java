@@ -17,6 +17,8 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -83,21 +85,20 @@ public class MongoService {
 
 
     public void writeLog(Date timeStamp, HttpServletRequest request, long apiResponseTime, SearchResult result) {
-        Log log=Log.builder()
-                .timeStamp(timeStamp)
-                .appId(request.getRemoteAddr())
-                .deviceType(request.getHeader("User-Agent"))
-                .searchTerm(request.getParameter("movie"))
-                .apiResponseTime(apiResponseTime)
-                .result(result)
-                .build();
+        Log log=new Log(timeStamp,request.getRemoteAddr(),request.getHeader("User-Agent"),request.getParameter("movie"),
+                apiResponseTime,result);
+
         collection.insertOne(log);
     }
 
-    public void getAllLogs(){
+    public List<Log> getAllLogs(){
         // Read all documents currently stored in the database and print all strings contained in the documents to the console
         System.out.println("Retrieve all logs in MongoDB:");
-        collection.find().forEach(log -> System.out.println(log));
+        List<Log> logs=new LinkedList<>();
+        collection.find().forEach(log -> logs.add(log));
+
+        System.out.println(logs.get(0).getTimeStamp());
+        return logs;
     }
 
 }

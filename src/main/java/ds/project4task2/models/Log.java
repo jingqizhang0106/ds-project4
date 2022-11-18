@@ -4,7 +4,7 @@ import lombok.Builder;
 
 import java.util.Date;
 
-@Builder
+
 public class Log {
     Date timeStamp;
     String appId;
@@ -43,6 +43,15 @@ public class Log {
 
     public void setSearchTerm(String searchTerm) {
         this.searchTerm = searchTerm;
+    }
+    public Log(){}
+    public Log(Date timeStamp, String appId, String deviceType, String searchTerm, long apiResponseTime, SearchResult result) {
+        this.timeStamp = timeStamp;
+        this.appId = appId;
+        this.deviceType = deviceType;
+        this.searchTerm = searchTerm;
+        this.apiResponseTime = apiResponseTime;
+        this.result = result;
     }
 
     public long getApiResponseTime() {
